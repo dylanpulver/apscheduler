@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import pickle
+import sys
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from io import StringIO
@@ -1345,11 +1346,19 @@ class TestTwistedScheduler(SchedulerImplementationTestBase):
 
 
 class TestQtScheduler(SchedulerImplementationTestBase):
-    @pytest.fixture(scope="class")
-    @classmethod
-    def coreapp(cls):
-        QtCore = pytest.importorskip("PySide6.QtCore")
-        QtCore.QCoreApplication([])
+    if sys.version_info >= (3, 10):  # pytest 9.1.x or later
+
+        @pytest.fixture(scope="class")
+        @classmethod
+        def coreapp(cls):
+            QtCore = pytest.importorskip("PySide6.QtCore")
+            QtCore.QCoreApplication([])
+    else:
+
+        @pytest.fixture(scope="class")
+        def coreapp(self):
+            QtCore = pytest.importorskip("PySide6.QtCore")
+            QtCore.QCoreApplication([])
 
     @pytest.fixture
     def scheduler(self, coreapp):
