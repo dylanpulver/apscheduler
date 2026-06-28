@@ -11,6 +11,8 @@ APScheduler, see the :doc:`migration section <migration>`.
   delay being computed from the naive wall-clock difference instead of the actual UTC
   difference
   (`#1103 <https://github.com/agronholm/apscheduler/issues/1103>`_)
+- Fixed imported jobs missing their scheduler and job store links
+  (`#1119 <https://github.com/agronholm/apscheduler/issues/1119>`_)
 
 **3.11.2**
 

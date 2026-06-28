@@ -779,6 +779,8 @@ Jobstore other:
         jobs.sort(key=lambda job: job.name)
 
         job = jobs.pop(0)
+        assert job._scheduler is new_scheduler
+        assert job._jobstore_alias == "default"
         assert job.name == "cronjob"
         assert job.args == ["foo", "bar"]
         assert job.kwargs == {"end": ""}
@@ -787,6 +789,8 @@ Jobstore other:
         )
 
         job = jobs.pop(0)
+        assert job._scheduler is new_scheduler
+        assert job._jobstore_alias == "default"
         assert job.name == "datejob"
         assert job.args == ["foo", "bar"]
         assert job.kwargs == {"end": ""}
@@ -795,6 +799,8 @@ Jobstore other:
         )
 
         job = jobs.pop(0)
+        assert job._scheduler is new_scheduler
+        assert job._jobstore_alias == "default"
         assert job.name == "intervaljob"
         assert job.args == ["foo", "bar"]
         assert job.kwargs == {"end": ""}
@@ -1339,8 +1345,9 @@ class TestTwistedScheduler(SchedulerImplementationTestBase):
 
 
 class TestQtScheduler(SchedulerImplementationTestBase):
+    @classmethod
     @pytest.fixture(scope="class")
-    def coreapp(self):
+    def coreapp(cls):
         QtCore = pytest.importorskip("PySide6.QtCore")
         QtCore.QCoreApplication([])
 
