@@ -4,7 +4,7 @@ Version history
 To find out how to migrate your application from a previous version of
 APScheduler, see the :doc:`migration section <migration>`.
 
-**UNRELEASED**
+**3.11.3**
 
 - Fixed sub-minute interval jobs stalling for the duration of a DST spring-forward gap
   when the scheduler was configured with a ``ZoneInfo`` time zone, caused by the wakeup
