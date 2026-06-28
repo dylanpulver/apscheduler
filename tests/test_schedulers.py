@@ -1345,8 +1345,8 @@ class TestTwistedScheduler(SchedulerImplementationTestBase):
 
 
 class TestQtScheduler(SchedulerImplementationTestBase):
-    @classmethod
     @pytest.fixture(scope="class")
+    @classmethod
     def coreapp(cls):
         QtCore = pytest.importorskip("PySide6.QtCore")
         QtCore.QCoreApplication([])
