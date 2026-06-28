@@ -54,7 +54,7 @@ test = [
     "pytest",
     "pytest-timeout",
     "anyio >= 4.5.2",
-    "PySide6; python_implementation == 'CPython' and python_version < '3.14'",
+    "PySide6; python_implementation == 'CPython'",
     "gevent; python_version < '3.14'",
     "pytz",
     "twisted; python_version < '3.14'",
