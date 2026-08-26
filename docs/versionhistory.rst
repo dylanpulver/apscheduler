@@ -22,6 +22,7 @@ APScheduler, see the :doc:`migration section <migration>`.
 - Fixed the synchronous ``Scheduler`` never running automatic clean-up, as its
   ``cleanup_interval`` argument defaulted to ``None`` (which disables clean-up) instead
   of mirroring the 15 minute default of ``AsyncScheduler``
+  (`#1135 <https://github.com/agronholm/apscheduler/pull/1135>`_; PR by @dylanpulver)
 
 **4.0.0a6**
 
