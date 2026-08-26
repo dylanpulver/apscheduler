@@ -1446,6 +1446,27 @@ class TestSyncScheduler:
             with pytest.raises(ScheduleLookupError):
                 scheduler.get_schedule("event_set")
 
+    def test_default_cleanup_interval(self) -> None:
+        """
+        Test that the sync scheduler defaults to the same clean-up interval as the
+        async scheduler instead of disabling automatic clean-up.
+
+        """
+        assert Scheduler().cleanup_interval == timedelta(minutes=15)
+        assert Scheduler().cleanup_interval == AsyncScheduler().cleanup_interval
+
+    def test_implicit_cleanup(self, mocker: MockerFixture) -> None:
+        """
+        Test that the data store's cleanup() method is called when a scheduler
+        configured with the default options is started.
+
+        """
+        with Scheduler() as scheduler:
+            event = threading.Event()
+            mocker.patch.object(scheduler.data_store, "cleanup", side_effect=event.set)
+            scheduler.start_in_background()
+            assert event.wait(3)
+
     def test_run_until_stopped(self) -> None:
         queue: Queue[Event] = Queue()
         with Scheduler() as scheduler:
