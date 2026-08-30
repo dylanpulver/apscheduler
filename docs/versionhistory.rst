@@ -19,6 +19,10 @@ APScheduler, see the :doc:`migration section <migration>`.
 - Fixed the documented ``psycopg`` extra not being declared in the project metadata, so
   ``pip install apscheduler[psycopg]`` silently installed nothing for the Psycopg event
   broker (`#1133 <https://github.com/agronholm/apscheduler/issues/1133>`_)
+- Fixed schedules staying stuck when the scheduler holding them died without releasing
+  them; clean-up now releases schedules whose leases have expired and wakes up the
+  other schedulers so they can acquire them
+  (`#1053 <https://github.com/agronholm/apscheduler/issues/1053>`_)
 - Fixed the synchronous ``Scheduler`` never running automatic clean-up, as its
   ``cleanup_interval`` argument defaulted to ``None`` (which disables clean-up) instead
   of mirroring the 15 minute default of ``AsyncScheduler``
